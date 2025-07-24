@@ -13,7 +13,7 @@ export const useCommonStore = defineStore('common', () => {
     const newForm = await createForm(form)
 
     if (newForm) {
-      forms.value.push(form)
+      forms.value.push(newForm)
       return true
     }
 
@@ -24,5 +24,9 @@ export const useCommonStore = defineStore('common', () => {
     return forms.value.find((x) => x.id == id)
   }
 
-  return { forms, loadForms, addForm, getFormById }
+  function clearForms() {
+    forms.value = null
+  }
+
+  return { forms, loadForms, addForm, getFormById, clearForms }
 })

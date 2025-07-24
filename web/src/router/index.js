@@ -54,7 +54,7 @@ router.beforeEach(async (to, from, next) => {
   const goingToLoginOrRegister = to.name === 'login' || to.name === 'register'
 
   const { isLoggedIn, user, getProfile, logout } = useAuthStore()
-  const { forms, loadForms } = useCommonStore()
+  const { forms, loadForms, clearForms } = useCommonStore()
 
   if (isLoggedIn && !user) {
     await getProfile()
@@ -73,6 +73,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.path === '/logout' && isLoggedIn) {
+    clearForms()
     logout()
     return next({ name: 'login' })
   }

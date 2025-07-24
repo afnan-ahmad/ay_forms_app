@@ -42,3 +42,16 @@ export async function createForm(form) {
 
   return await response.json()
 }
+
+export async function getUsers() {
+  const { token } = storeToRefs(useAuthStore())
+
+  const response = await fetch('http://localhost:5000/api/user?all_users=true', {
+    method: 'GET',
+    headers: {
+      'Authentication-Token': token.value,
+    },
+  })
+
+  return await response.json()
+}

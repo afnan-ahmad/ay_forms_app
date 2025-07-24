@@ -14,8 +14,7 @@ class FormAPI(Resource):
            forms = Form.query.all()
            return forms_schema.dump(forms)
        
-       forms = Form.query.filter_by(user_id=user.id).all()
-       return forms_schema.dump(forms)
+       return forms_schema.dump(user.forms)
 
     @auth_required('token')
     def post(self):
@@ -31,6 +30,8 @@ class FormAPI(Resource):
            new_form = create_form_schema.load(body)
        except ValidationError as err:
            return err.messages, 422
+       
+       new_form.users.append(user)
        
        db.session.add(new_form)
        db.session.commit()

@@ -15,7 +15,7 @@ const { forms } = storeToRefs(useCommonStore())
         <router-link to="/create" class="btn btn-primary fw-bolder">Create Form</router-link>
       </div>
       <div class="d-flex flex-row flex-wrap mt-3">
-        <div v-for="form in forms" :key="form.id" class="col-12 col-md-3 px-4">
+        <div v-for="form in forms" :key="form.id" class="col-12 col-md-3 px-4 py-4">
           <FormCard :form="form"></FormCard>
         </div>
       </div>

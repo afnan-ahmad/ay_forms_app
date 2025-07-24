@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { extractSchema } from '@/client'
+import { extractSchema, getUsers } from '@/client'
 import { useCommonStore } from '@/stores/common'
 import router from '@/router'
 import DynamicForm from '@/components/DynamicForm.vue'
@@ -10,6 +10,12 @@ const { addForm } = useCommonStore()
 const formTitle = ref('Form Title')
 const formDescription = ref('The description for the form')
 const fields = ref(null)
+const users = ref([])
+
+const availableUsers = ref(null)
+getUsers().then((data) => {
+  availableUsers.value = data
+})
 
 const generateDisabled = ref(true)
 const inputFile = ref(null)
@@ -24,7 +30,7 @@ const generate = async () => {
 }
 const save = async (e) => {
   e.preventDefault()
-  const success = addForm({ title: formTitle.value, description: formDescription.value, fields: fields.value })
+  const success = await addForm({ title: formTitle.value, description: formDescription.value, fields: fields.value, users: users.value })
   if (success) {
     router.replace('/')
   }
@@ -53,7 +59,13 @@ const save = async (e) => {
             <span>Supported file formats are XLSX and CSV.</span>
           </div>
         </div>
-        <button type="submit" @click="save" class="btn btn-primary">Save</button>
+        <div class="mb-3">
+          <label for="usersSelect" class="form-label">Assign to users *</label>
+          <select id="usersSelect" class="form-select" multiple v-model="users">
+            <option v-for="user in availableUsers" :key="user.id" :value="user.id">{{ user.email }}</option>
+          </select>
+        </div>
+        <button type="submit" @click="save" class="btn btn-primary" :disabled="fields == null || users.length == 0">Save</button>
       </form>
     </div>
     <div class="col col-8 overflow-auto bg-body p-4">

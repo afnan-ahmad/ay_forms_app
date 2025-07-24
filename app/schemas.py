@@ -24,8 +24,10 @@ class CreateFormSchema(ma.SQLAlchemySchema):
     title = ma.auto_field()
     description = ma.auto_field()
     fields = ma.auto_field()
+    users = ma.auto_field()
 
     
+users_schema = UserSchema(many=True)
 user_schema = UserSchema()
 forms_schema = FormSchema(many=True)
 form_schema = FormSchema()
