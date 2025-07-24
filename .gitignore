@@ -1,0 +1,34 @@
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+*.egg-info/
+.Python
+build/
+dist/
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Editor-specific files
+.vscode/
+.idea/
+
+# Flask-specific
+instance/
+.webassets-cache/
+
+# Logs and temporary files
+*.log
+tmp/
+.DS_Store
+Thumbs.db
+
+# Database files (if using SQLite)
+*.sqlite3
+*.db
+
+# Environment variables
+.env
