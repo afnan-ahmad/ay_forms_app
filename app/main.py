@@ -24,11 +24,12 @@ fsqla.FsModels.set_db_info(db)
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
 
-from api import UserAPI, FormAPI, ExtractionAPI
+from api import UserAPI, FormAPI, ExtractionAPI, SubmissionAPI
 
 api.add_resource(UserAPI, '/api/user')
 api.add_resource(FormAPI, '/api/forms', '/api/forms/<int:form_id>')
 api.add_resource(ExtractionAPI, '/api/extract')
+api.add_resource(SubmissionAPI, '/api/submissions', '/api/submissions/<int:form_id>')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

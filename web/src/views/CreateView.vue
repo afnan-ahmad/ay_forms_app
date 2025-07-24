@@ -52,8 +52,8 @@ const save = async (e) => {
         <div class="mb-3">
           <label for="inputFile" class="form-label">Upload spreadsheet *</label>
           <div class="input-group mb-3">
-            <input type="file" class="form-control" id="inputFile" name="inputFile" @change="handleFileChange" />
-            <button @click="generate" class="btn btn-secondary" type="button" :disabled="generateDisabled">Generate Form</button>
+            <input type="file" accept=".xlsx, .csv" class="form-control" id="inputFile" name="inputFile" @change="handleFileChange" />
+            <button @click="generate" class="btn btn-primary" type="button" :disabled="generateDisabled">Generate Form</button>
           </div>
           <div class="form-text">
             <span>Supported file formats are XLSX and CSV.</span>
@@ -65,7 +65,10 @@ const save = async (e) => {
             <option v-for="user in availableUsers" :key="user.id" :value="user.id">{{ user.email }}</option>
           </select>
         </div>
-        <button type="submit" @click="save" class="btn btn-primary" :disabled="fields == null || users.length == 0">Save</button>
+        <div class="d-flex flex-fill">
+          <button type="button" @click="router.replace('/')" class="btn btn-secondary">Cancel</button>
+          <button type="submit" @click="save" class="btn btn-primary ms-auto" :disabled="fields == null || users.length == 0">Save</button>
+        </div>
       </form>
     </div>
     <div class="col col-8 overflow-auto bg-body p-4">

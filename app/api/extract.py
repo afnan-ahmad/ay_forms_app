@@ -27,14 +27,15 @@ class ExtractionAPI(Resource):
         fields = []
         for i in range(df.shape[1]):
             col, dtype = df.columns[i], df.dtypes.iloc[i]
+            id = 'field' + str(i)
 
             if pd.api.types.is_bool_dtype(dtype):
-                fields.append({'label': col, 'type': 'radio'})
+                fields.append({'id': id, 'label': col, 'type': 'checkbox'})
             elif pd.api.types.is_numeric_dtype(dtype):
-                fields.append({'label': col, 'type': 'number'})
+                fields.append({'id': id, 'label': col, 'type': 'number'})
             elif pd.api.types.is_datetime64_dtype(dtype):
-                fields.append({'label': col, 'type': 'date'})
+                fields.append({'id': id, 'label': col, 'type': 'date'})
             else:
-                fields.append({'label': col, 'type': 'text'})
+                fields.append({'id': id, 'label': col, 'type': 'text'})
                 
         return fields

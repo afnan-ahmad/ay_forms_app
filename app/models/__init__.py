@@ -3,3 +3,5 @@ from .role import Role
 
 from .form import Form
 from .forms_users import FormsUsers
+
+from .submission import Submission
